@@ -63,3 +63,19 @@ def criar_post(request):
         form = FormPost()
 
         return render(request, 'criar_post.html', {'form': form})
+
+@login_required
+def editar_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    if request.user != post.autor.usuario:
+        return redirect('home')
+
+    if request.method == 'POST':
+        form = FormPost(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = FormPost(instance=post)
+    return render(request, 'editar_post.html', {'form': form})

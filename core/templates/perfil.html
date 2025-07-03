@@ -5,8 +5,13 @@
 {% block title %}Meu Perfil - OneAlf{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto mt-8 text-white">
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col md:flex-row-reverse items-center md:items-start">
+<div class="container mx-auto mt-10">
+    {% if perfil.usuario.username == user.username %}
+            <h2 class="text-3xl font-bold text-white mb-6">Meu Perfil</h2>
+            {% else %}
+            <h2 class="text-3xl font-bold text-white mb-6">Perfil</h2>
+            {% endif %}
+    <div class="bg-gray-800 p-6 rounded-lg shadow-md">
         <div class="flex-shrink-0 mb-4 md:mb-0 md:ml-6">
             {% if perfil.foto %}
                 <img src="{{ perfil.foto.url }}" alt="Foto de perfil" class="w-24 h-24 rounded-full object-cover" />
@@ -15,11 +20,14 @@
             {% endif %}
         </div>
         <div class="flex-grow text-center md:text-left">
-            <h2 class="text-2xl font-bold mb-4">Meu Perfil</h2>
+            
             <p><strong>Usuário:</strong> {{ perfil.usuario.username }}</p>
             <p><strong>Email:</strong> {{ perfil.usuario.email }}</p>
             <p><strong>Bio:</strong> {{ perfil.bio|default:"Nenhuma bio informada." }}</p>
 
             <a href="{% url 'editar_perfil' request.user.username %}" class="mt-4 inline-block bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded">Editar Perfil</a>
         </div>
+    </div>
+    
+</div>
 {% endblock %}

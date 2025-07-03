@@ -10,5 +10,6 @@ urlpatterns = [
     path('perfil/<str:username>', views.perfil, name='perfil'),
     path('editar_perfil/<str:username>', views.editar_perfil, name='editar_perfil'),
     path('criar_post/', views.criar_post, name='criar_post'),
+    path('editar_post/<int:post_id>', views.editar_post, name='editar_post'),
 
 ]
