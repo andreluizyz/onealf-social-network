@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -19,7 +20,14 @@ class Post(models.Model):
     def __str__(self):
         return f'Título: {self.titulo}, Autor: {self.autor}, Data de criação: {self.data_criacao}'
 
-# class Comentario(models.Model):
+class Comentario(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comentarios')
+    autor = models.ForeignKey(Perfil, on_delete=models.CASCADE)
+    conteudo = models.TextField()
+    data_criacao = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'Comentário de {self.autor.usuario.username} em "{self.post.titulo}"'
 
 # class Curtida(models.Model):
 

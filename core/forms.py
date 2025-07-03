@@ -55,3 +55,14 @@ class FormPost(forms.ModelForm):
             'conteudo': 'Conteúdo',
             'imagem': 'Imagem (opcional)',
         }
+
+class FormComentario(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ['conteudo']
+        labels = {
+            'conteudo': 'Comentário',
+        }
+        widgets = {
+            'conteudo': forms.Textarea(attrs={'rows': 2, 'placeholder': 'Digite seu comentário...'}),
+        }

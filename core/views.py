@@ -82,3 +82,26 @@ def editar_post(request, post_id):
     else:
         form = FormPost(instance=post)
     return render(request, 'editar_post.html', {'form': form})
+
+@login_required
+def ver_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    comentarios = post.comentarios.all().order_by('-data_criacao')
+    perfil = request.user.perfil
+
+    if request.method == 'POST':
+        form = FormComentario(request.POST)
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.post = post  
+            comentario.autor = perfil  
+            comentario.save()
+            return redirect('ver_post', post_id=post.id) 
+    else:
+        form = FormComentario()
+    
+    return render(request, 'ver_post.html', {
+        'post': post,
+        'comentarios': comentarios,
+        'form': form,
+    })

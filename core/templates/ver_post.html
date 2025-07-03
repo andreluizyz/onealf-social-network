@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-8 text-white">
+    <div class="bg-gray-800 p-6 rounded mb-6">
+        <h2 class="text-2xl font-bold">{{ post.titulo }}</h2>
+        <p class="text-sm text-gray-400">{{ post.data_criacao }}</p>
+        <p class="mt-4">{{ post.conteudo }}</p>
+
+        {% if post.imagem %}
+            <img src="{{ post.imagem.url }}" class="mt-4 rounded" />
+        {% endif %}
+    </div>
+
+    <div class="bg-gray-800 p-6 rounded">
+        <h3 class="text-lg font-bold mb-2">Comentários</h3>
+
+        {% for comentario in comentarios %}
+            <div class="mb-4 border-b border-gray-700 pb-2">
+                <p class="text-sm text-gray-300"><strong><a href="{% url 'perfil' comentario.autor.usuario.username  %}" class="font-semibold text-white text-lg" >{{ comentario.autor.usuario.username }}</a></strong> comentou:</p>
+                <p>{{ comentario.conteudo }}</p>
+                <p class="text-xs text-gray-500">{{ comentario.data_criacao|date:"d/m/Y H:i" }}</p>
+            </div>
+        {% empty %}
+            <p class="text-gray-400">Seja o primeiro a comentar!</p>
+        {% endfor %}
+
+        <form method="POST" class="mt-4 space-y-2">
+            {% csrf_token %}
+            {{ form.conteudo|add_class:"w-full bg-gray-700 text-white p-2 rounded" }}
+            <button type="submit" class="bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded">
+                Comentar
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

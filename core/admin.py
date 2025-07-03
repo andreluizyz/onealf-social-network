@@ -14,3 +14,10 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('titulo', 'conteudo', 'autor__usuario__username') 
     list_filter = ('data_criacao',)
     ordering = ('-data_criacao',)
+
+@admin.register(Comentario)
+class ComentarioAdmin(admin.ModelAdmin):
+    list_display = ('conteudo', 'autor', 'data_criacao')  
+    search_fields = ('post_titulo', 'conteudo', 'autor__usuario__username') 
+    list_filter = ('data_criacao',)
+    ordering = ('-data_criacao',)
