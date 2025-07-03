@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Sobre{% endblock %}
+
+{% block content %}
+
+
+<section class="max-w-3xl mx-auto mt-12 px-4 text-white">
+    <h1 class="text-3xl font-bold gradient-text mb-4">Sobre o Projeto</h1>
+
+    <p class="mb-4">
+        O <strong>OneAlf</strong> é um projeto de rede social criado com o propósito de estudo, prática e aperfeiçoamento das tecnologias do <strong>Django</strong>, <strong>Python</strong> e <strong>Tailwind CSS</strong>. 
+        O sistema permite que usuários se registrem, criem perfis, editem suas informações e compartilhem publicações com imagem e texto.
+    </p>
+
+    <p class="mb-4">
+        Desenvolvido por <strong>Alffex</strong>, o projeto visa simular o funcionamento de uma rede social moderna, permitindo entender na prática conceitos fundamentais como:
+    </p>
+
+    <ul class="list-disc list-inside mb-4 text-gray-300">
+        <li>Autenticação de usuários</li>
+        <li>Relacionamentos entre modelos</li>
+        <li>Upload de imagens e arquivos</li>
+        <li>Views protegidas com login</li>
+        <li>Renderização dinâmica com templates</li>
+        <li>Boas práticas com formulários e validações</li>
+    </ul>
+
+    <p class="mb-6">
+        Todo o projeto está disponível publicamente no GitHub, para consulta, aprendizado ou contribuição da comunidade.
+    </p>
+
+    <a href="https://github.com/andreluizyz" target="_blank" class="inline-block bg-pink-500 hover:bg-pink-600 text-white py-2 px-6 rounded transition duration-300">
+        Ver GitHub
+    </a>
+</section>
+
+{% endblock %}

@@ -24,10 +24,11 @@
             <p><strong>Usuário:</strong> {{ perfil.usuario.username }}</p>
             <p><strong>Email:</strong> {{ perfil.usuario.email }}</p>
             <p><strong>Bio:</strong> {{ perfil.bio|default:"Nenhuma bio informada." }}</p>
-
+            {% if perfil.usuario.username == user.username %}
             <a href="{% url 'editar_perfil' request.user.username %}" class="mt-4 inline-block bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded">Editar Perfil</a>
+            {% endif %}
         </div>
     </div>
-    
+
 </div>
 {% endblock %}

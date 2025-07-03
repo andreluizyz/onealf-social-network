@@ -23,7 +23,7 @@
         <div>
             <a href="{% url 'perfil' post.autor.usuario.username  %}" class="font-semibold text-white text-lg" >{{ post.autor.usuario.username }}</a>
             {% if post.autor.usuario.username == user.username %}
-            <a href="{% url 'editar_post' post.id %}" class="bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded-lg shadow-md transition duration-300">
+            <a href="{% url 'editar_post' post.id %}" class="me-3 bg-pink-500 hover:bg-pink-600 text-white  px-4 rounded-lg shadow-md transition duration-300">
                 Editar Post
             </a>
             {% endif %}

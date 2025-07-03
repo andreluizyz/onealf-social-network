@@ -18,12 +18,15 @@ def register(request):
         form = FormUsuario()
     return render(request, 'register.html', {'form': form})
 
-@login_required(login_url='login')
+
 def home(request):
     posts = Post.objects.all().order_by('-data_criacao')
     return render(request, 'home.html', {'posts': posts})
 
-@login_required
+def sobre(request):
+    return render(request, 'sobre.html')
+
+@login_required(login_url='login')
 def perfil(request, username):
     user = get_object_or_404(User, username=username)
     perfil = get_object_or_404(Perfil, usuario=user)
@@ -66,13 +69,13 @@ def criar_post(request):
 
 @login_required
 def editar_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+    post = get_object_or_404(Post, id=post_id) 
 
-    if request.user != post.autor.usuario:
+    if request.user != post.autor.usuario: 
         return redirect('home')
 
     if request.method == 'POST':
-        form = FormPost(request.POST, request.FILES, instance=post)
+        form = FormPost(request.POST, request.FILES, instance=post) 
         if form.is_valid():
             form.save()
             return redirect('home')
