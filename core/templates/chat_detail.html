@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Chat com {{ outro_usuario.username }} - OneAlf{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-8 p-6 bg-gray-800 rounded-lg shadow-lg text-white">
+    <div class="flex items-center mb-6">
+        <img src="{% static 'img/default-user.png' %}" alt="Foto de perfil" class="w-12 h-12 rounded-full object-cover border-2 border-purple-500 mr-4">
+        <h2 class="text-2xl font-bold">Chat com {{ outro_usuario.username }}</h2>
+    </div>
+
+    <div class="bg-gray-700 p-4 rounded-lg mb-4 max-h-96 overflow-y-auto space-y-4">
+        {% for msg in mensagens %}
+            <div class="flex {% if msg.remetente == user %}justify-end{% else %}justify-start{% endif %}">
+                <div class="{% if msg.remetente == user %}bg-purple-600{% else %}bg-gray-600{% endif %} p-3 rounded-lg max-w-xs">
+                    <p class="text-xs text-gray-300 mb-1">{{ msg.remetente.username }} - {{ msg.data_envio|date:"H:i" }}</p>
+                    <p class="text-base">{{ msg.conteudo }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-gray-400 text-center">Nenhuma mensagem. Comece a conversar!</p>
+        {% endfor %}
+    </div>
+
+    <form method="POST" class="mt-6 space-y-4">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="{{ form.conteudo.id_for_label }}" class="sr-only">Sua Mensagem:</label>
+            {{ form.conteudo|add_class:"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 h-24 resize-none" }}
+        </div>
+        <button type="submit" class="bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded-lg shadow-md transition duration-300">
+            Enviar
+        </button>
+    </form>
+</div>
+{% endblock %}}
+

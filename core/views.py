@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 from .forms import *
 from .models import *
@@ -124,17 +125,31 @@ def curtir_post(request, post_id):
     return redirect('ver_post', post_id=post.id)
 
 @login_required
-def chat_view(request, username):
+def lista_usuarios(request):
+    usuarios = User.objects.exclude(id=request.user.id)
+    return render(request, 'chat_list.html', {'usuarios': usuarios})
+
+@login_required
+def chat_com_usuario(request, username):
     outro_usuario = get_object_or_404(User, username=username)
     mensagens = Mensagem.objects.filter(
-        (models.Q(remetente=request.user) & models.Q(destinatario=outro_usuario)) |
-        (models.Q(remetente=outro_usuario) & models.Q(destinatario=request.user))
-    ).order_by('timestamp')
+        Q(remetente=request.user, destinatario=outro_usuario) |
+        Q(remetente=outro_usuario, destinatario=request.user)
+    ).order_by('data_envio')
 
     if request.method == 'POST':
-        conteudo = request.POST.get('mensagem')
-        if conteudo:
-            Mensagem.objects.create(remetente=request.user, destinatario=outro_usuario, conteudo=conteudo)
-            return redirect('chat', username=outro_usuario.username)
+        form = FormMensagem(request.POST)
+        if form.is_valid():
+            nova_msg = form.save(commit=False)
+            nova_msg.remetente = request.user
+            nova_msg.destinatario = outro_usuario
+            nova_msg.save()
+            return redirect('chat', username=username)
+    else:
+        form = FormMensagem()
 
-    return render(request, 'chat.html', {'mensagens': mensagens, 'outro_usuario': outro_usuario})
+    return render(request, 'chat_detail.html', {
+        'mensagens': mensagens,
+        'form': form,
+        'outro_usuario': outro_usuario
+    })

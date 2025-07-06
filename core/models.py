@@ -43,11 +43,11 @@ class Mensagem(models.Model):
     remetente = models.ForeignKey(User, related_name='mensagens_enviadas', on_delete=models.CASCADE)
     destinatario = models.ForeignKey(User, related_name='mensagens_recebidas', on_delete=models.CASCADE)
     conteudo = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    data_envio = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['timestamp']
+        ordering = ['data_envio']
 
     def __str__(self):
-        return f'{self.remetente.username} → {self.destinatario.username}: {self.conteudo[:20]}'
+        return f'{self.remetente.username} → {self.destinatario.username}'
 

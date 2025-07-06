@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Conversas - OneAlf{% endblock %}
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-8 p-6 bg-gray-800 rounded-lg shadow-lg text-white">
+    <h2 class="text-3xl font-bold mb-6 text-center">Minhas Conversas</h2>
+    <div class="space-y-4">
+        {% for usuario in usuarios %}
+            <a href="{% url 'chat' usuario.username %}" class="flex items-center p-4 bg-gray-700 rounded-lg shadow-md hover:bg-gray-600 transition duration-300">
+                <img src="{% static 'img/default-user.png' %}" alt="Foto de perfil" class="w-12 h-12 rounded-full object-cover border-2 border-purple-500 mr-4">
+                <span class="text-xl font-semibold">{{ usuario.username }}</span>
+            </a>
+        {% empty %}
+            <p class="text-gray-400 text-center">Você não tem conversas ativas.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+

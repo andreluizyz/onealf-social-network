@@ -14,7 +14,9 @@
                 {% endif %}
                 <span class="text-white text-sm font-medium">{{ user.username }}</span>
             </div>
+            <a href="{% url 'lista_usuarios' %}" class="text-gray-300 hover:text-white transition duration-300">Mensagens</a>
             <a href="{% url 'perfil' request.user.username %}" class="text-gray-300 hover:text-white transition duration-300">Perfil</a>
+            <a href="{% url 'sobre' %}" class="block text-gray-300 hover:text-white transition duration-300 py-2">Sobre</a>
             <form method="POST" action="{% url 'logout' %}" class="inline">
                 {% csrf_token %}
                 <button type="submit" class="text-red-400 hover:text-red-500 transition duration-300">Sair</button>
@@ -41,13 +43,17 @@
                 {% endif %}
                 <span class="text-white text-sm font-medium">{{ user.username }}</span>
             </div>
+            <a href="{% url 'lista_usuarios' %}" class="text-gray-300 hover:text-white transition duration-300">Mensagens</a>
             <a href="{% url 'perfil' request.user.username %}" class="block text-gray-300 hover:text-white transition duration-300 py-2">Perfil</a>
             <a href="{% url 'sobre' %}" class="block text-gray-300 hover:text-white transition duration-300 py-2">Sobre</a>
+           
+            
             <form method="POST" action="{% url 'logout' %}" class="inline-block w-full">
                 {% csrf_token %}
                 <button type="submit" class="text-red-400 hover:text-red-500 transition duration-300 py-2">Sair</button>
             </form>            
         {% else %}
+            <a href="{% url 'lista_usuarios' %}" class="text-gray-300 hover:text-white transition duration-300">Mensagens</a>
             <a href="{% url 'sobre' %}" class="block text-gray-300 hover:text-white transition duration-300 py-2">Sobre</a>
             <a href="{% url 'login' %}" class="block text-gray-300 hover:text-white transition duration-300 py-2">Entrar</a>
             <a href="{% url 'register' %}" class="block text-gray-300 hover:text-white transition duration-300 py-2">Registrar</a>

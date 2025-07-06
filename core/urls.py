@@ -14,6 +14,7 @@ urlpatterns = [
     path('editar_post/<int:post_id>/', views.editar_post, name='editar_post'),
     path('sobre/', views.sobre, name='sobre'),
     path('post/<int:post_id>/curtir/', views.curtir_post, name='curtir_post'),
-    path('chat/<str:username>/', views.chat_view, name='chat'),
+    path('mensagens/', views.lista_usuarios, name='lista_usuarios'),
+    path('chat/<str:username>/', views.chat_com_usuario, name='chat'),
 
 ]
