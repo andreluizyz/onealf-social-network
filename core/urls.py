@@ -18,3 +18,4 @@ urlpatterns = [
     path('chat/<str:username>/', views.chat_com_usuario, name='chat'),
 
 ]
+
