@@ -17,7 +17,7 @@ class FormUsuario(UserCreationForm):
             self.fields[field_name].help_text = None
     
 class FormPerfil(forms.ModelForm):
-    # Campo extra para o nome de usuário (que está no User)
+    
     username = forms.CharField(
         label='Nome de Usuário',
         max_length=150,
@@ -28,7 +28,7 @@ class FormPerfil(forms.ModelForm):
 
     class Meta:
         model = Perfil
-        fields = ['foto', 'bio']  # Campos do Perfil
+        fields = ['foto', 'bio']  
 
     def __init__(self, *args, **kwargs):
         # Pega o usuário para preencher o campo username inicial

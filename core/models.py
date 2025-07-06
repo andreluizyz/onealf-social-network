@@ -39,4 +39,15 @@ class Curtida(models.Model):
     def __str__(self):
         return f'{self.perfil.usuario.username} curtiu "{self.post.titulo}"'
 
+class Mensagem(models.Model):
+    remetente = models.ForeignKey(User, related_name='mensagens_enviadas', on_delete=models.CASCADE)
+    destinatario = models.ForeignKey(User, related_name='mensagens_recebidas', on_delete=models.CASCADE)
+    conteudo = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['timestamp']
+
+    def __str__(self):
+        return f'{self.remetente.username} → {self.destinatario.username}: {self.conteudo[:20]}'
 

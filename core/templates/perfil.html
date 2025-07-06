@@ -1,33 +1,43 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block title %}Meu Perfil - OneAlf{% endblock %}
 
 {% block content %}
-<div class="container mx-auto mt-10">
-    {% if perfil.usuario.username == user.username %}
-            <h2 class="text-3xl font-bold text-white mb-6">Meu Perfil</h2>
-            {% else %}
-            <h2 class="text-3xl font-bold text-white mb-6">Perfil</h2>
-            {% endif %}
-    <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-        <div class="flex-shrink-0 mb-4 md:mb-0 md:ml-6">
+<div class="container mx-auto px-4 py-10">
+
+    <h2 class="text-3xl font-bold text-white mb-8">
+        {% if perfil.usuario.username == user.username %}
+            👤 Meu Perfil
+        {% else %}
+            👤 Perfil
+        {% endif %}
+    </h2>
+
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-md ring-1 ring-gray-700 flex flex-col md:flex-row items-center md:items-start gap-6">
+
+        <!-- Foto de Perfil -->
+        <div class="flex-shrink-0">
             {% if perfil.foto %}
-                <img src="{{ perfil.foto.url }}" alt="Foto de perfil" class="w-24 h-24 rounded-full object-cover" />
+                <img src="{{ perfil.foto.url }}" alt="Foto de perfil" class="w-32 h-32 rounded-full object-cover border-4 border-pink-500 shadow-lg" />
             {% else %}
-                <img src="{% static 'img/default-user.png' %}" alt="Foto padrão" class="w-24 h-24 rounded-full object-cover" />
+                <img src="{% static 'img/default-user.png' %}" alt="Foto padrão" class="w-32 h-32 rounded-full object-cover border-2 border-gray-600" />
             {% endif %}
         </div>
-        <div class="flex-grow text-center md:text-left">
-            
-            <p><strong>Usuário:</strong> {{ perfil.usuario.username }}</p>
-            <p><strong>Email:</strong> {{ perfil.usuario.email }}</p>
-            <p><strong>Bio:</strong> {{ perfil.bio|default:"Nenhuma bio informada." }}</p>
+
+        <!-- Informações -->
+        <div class="flex-grow text-center md:text-left space-y-3">
+            <p class="text-lg text-white"><strong>Usuário:</strong> <span class="text-pink-400">{{ perfil.usuario.username }}</span></p>
+            <p class="text-gray-300"><strong>Email:</strong> {{ perfil.usuario.email }}</p>
+            <p class="text-gray-300"><strong>Bio:</strong> {{ perfil.bio|default:"Nenhuma bio informada." }}</p>
+
             {% if perfil.usuario.username == user.username %}
-            <a href="{% url 'editar_perfil' request.user.username %}" class="mt-4 inline-block bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded">Editar Perfil</a>
+                <a href="{% url 'editar_perfil' request.user.username %}" class="inline-block mt-4 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-5 rounded-lg transition duration-200">
+                    ✏️ Editar Perfil
+                </a>
             {% endif %}
         </div>
+
     </div>
 
 </div>
