@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: momoblog
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn meuprojeto.wsgi
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: onealf.settings
+      - key: PYTHON_VERSION
+        value: 3.11
