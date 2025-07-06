@@ -1,8 +1,8 @@
 services:
   - type: web
-    name: momoblog
+    name: onealfblog
     env: python
-    buildCommand: ""
+    buildCommand: "pip install -r requirements.txt"
     startCommand: gunicorn onealf_social_network.wsgi
     plan: free
     autoDeploy: true

@@ -1,5 +1,5 @@
 """
-ASGI config for momo project.
+ASGI config for onealf project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
