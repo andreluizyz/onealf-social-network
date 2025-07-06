@@ -3,7 +3,7 @@ services:
     name: momoblog
     env: python
     buildCommand: ""
-    startCommand: gunicorn meuprojeto.wsgi
+    startCommand: gunicorn onealf_social_network.wsgi
     plan: free
     autoDeploy: true
     envVars:
