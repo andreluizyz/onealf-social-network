@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Count, Q
 
 from .forms import *
 from .models import *
@@ -21,7 +21,10 @@ def register(request):
 
 
 def home(request):
-    posts = Post.objects.all().order_by('-data_criacao')
+    posts = Post.objects.select_related('autor__usuario').annotate(
+        num_comentarios=Count('comentarios', distinct=True),
+        num_curtidas=Count('curtidas', distinct=True),
+    ).order_by('-data_criacao')
     return render(request, 'home.html', {'posts': posts})
 
 def sobre(request):
@@ -66,7 +69,7 @@ def criar_post(request):
     else:
         form = FormPost()
 
-        return render(request, 'criar_post.html', {'form': form})
+    return render(request, 'criar_post.html', {'form': form})
 
 @login_required
 def editar_post(request, post_id):

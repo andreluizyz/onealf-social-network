@@ -7,9 +7,11 @@
 
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <h2 class="text-3xl font-bold text-white">📰 Últimos Posts</h2>
+        {% if user.is_authenticated %}
         <a href="{% url 'criar_post' %}" class="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300">
             + Criar Novo Post
         </a>
+        {% endif %}
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -41,8 +43,8 @@
 
             <!-- Ações -->
             <div class="mt-5 space-y-2 text-sm text-gray-400">
-                <p>💬 {{ post.comentarios.count }} comentário{{ post.comentarios.count|pluralize }}</p>
-                <p>❤️ {{ post.curtidas.count }} curtida{{ post.curtidas.count|pluralize }}</p>
+                <p>💬 {{ post.num_comentarios }} comentário{{ post.num_comentarios|pluralize }}</p>
+                <p>❤️ {{ post.num_curtidas }} curtida{{ post.num_curtidas|pluralize }}</p>
                 
                 <div class="flex justify-between items-center mt-3">
                     <a href="{% url 'ver_post' post.id %}" class="text-pink-400 hover:underline font-medium">Ver post</a>
